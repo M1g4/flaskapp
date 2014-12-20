@@ -13,9 +13,6 @@ app.config.from_object(__name__)
 def connect_db():
     return sqlite3.connect(app.config['DATABSE'])
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
 @app.route('/', methods=['GET', 'POST'])
 def login():
     error = None
@@ -26,7 +23,7 @@ def login():
         else:
             session['loged_in'] = True
             return redirect(url_for('main'))
-        return render_template('login.html', error=error)
+    return render_template('login.html', error=error)
 
 @app.route('/logout')
 def logout():
@@ -37,3 +34,6 @@ def logout():
 @app.route('/main')
 def main():
     return render_template('main.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
